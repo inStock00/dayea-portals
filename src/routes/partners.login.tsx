@@ -74,6 +74,8 @@ function PartnersLogin() {
               <a href="#" className="underline underline-offset-4 hover:text-foreground">Reset</a>
             </div>
 
+            {error && <p className="text-xs text-destructive">{error}</p>}
+
             <button type="submit" disabled={loading} className="btn-primary w-full">
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -91,9 +93,11 @@ function PartnersLogin() {
           </div>
         </div>
 
-        <p className="mt-8 text-center text-[0.65rem] tracking-[0.25em] uppercase text-muted-foreground">
-          Demo — any credentials proceed to the dashboard
-        </p>
+        <div className="mt-8 text-center space-y-1 text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground">
+          <p>Demo account · prefilled</p>
+          <p className="font-mono normal-case tracking-normal text-[0.7rem]">VL-2274-A · advisor@dayea.demo</p>
+          <p className="font-mono normal-case tracking-normal text-[0.7rem]">PartnerDemo2025</p>
+        </div>
       </div>
     </div>
   );
