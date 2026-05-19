@@ -1,24 +1,35 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import villa from "@/assets/villa-interior.jpg";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/dreamers/login")({
   component: DreamersLogin,
 });
 
+const DEMO_EMAIL = "sarah@dayea.demo";
+const DEMO_PASSWORD = "DreamerDemo2025";
+
 function DreamersLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("sarah@example.com");
+  const [email, setEmail] = useState(DEMO_EMAIL);
+  const [password, setPassword] = useState(DEMO_PASSWORD);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
     setSent(true);
-    setTimeout(() => navigate({ to: "/dreamers/lounge" }), 1100);
+    setTimeout(() => navigate({ to: "/dreamers/lounge" }), 600);
   };
 
   return (
