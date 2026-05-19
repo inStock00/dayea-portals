@@ -14,7 +14,81 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      partner_bookings: {
+        Row: {
+          arrival: string
+          client_name: string
+          commission: number
+          created_at: string
+          id: string
+          nights: number
+          partner_id: string
+          status: string
+          villa: string
+        }
+        Insert: {
+          arrival: string
+          client_name: string
+          commission: number
+          created_at?: string
+          id?: string
+          nights: number
+          partner_id: string
+          status: string
+          villa: string
+        }
+        Update: {
+          arrival?: string
+          client_name?: string
+          commission?: number
+          created_at?: string
+          id?: string
+          nights?: number
+          partner_id?: string
+          status?: string
+          villa?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          agency: string | null
+          agent_id: string | null
+          created_at: string
+          full_name: string
+          id: string
+          member_since: number | null
+          portal: Database["public"]["Enums"]["portal_type"]
+          preferred_villa: string | null
+          tier: string | null
+          total_stays: number
+        }
+        Insert: {
+          agency?: string | null
+          agent_id?: string | null
+          created_at?: string
+          full_name: string
+          id: string
+          member_since?: number | null
+          portal: Database["public"]["Enums"]["portal_type"]
+          preferred_villa?: string | null
+          tier?: string | null
+          total_stays?: number
+        }
+        Update: {
+          agency?: string | null
+          agent_id?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          member_since?: number | null
+          portal?: Database["public"]["Enums"]["portal_type"]
+          preferred_villa?: string | null
+          tier?: string | null
+          total_stays?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +97,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      portal_type: "dreamer" | "partner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +224,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      portal_type: ["dreamer", "partner"],
+    },
   },
 } as const
