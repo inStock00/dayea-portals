@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PartnersLoginRouteImport } from './routes/partners.login'
+import { Route as PartnersDashboardRouteImport } from './routes/partners.dashboard'
+import { Route as DreamersLoungeRouteImport } from './routes/dreamers.lounge'
+import { Route as DreamersLoginRouteImport } from './routes/dreamers.login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersLoginRoute = PartnersLoginRouteImport.update({
+  id: '/partners/login',
+  path: '/partners/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersDashboardRoute = PartnersDashboardRouteImport.update({
+  id: '/partners/dashboard',
+  path: '/partners/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DreamersLoungeRoute = DreamersLoungeRouteImport.update({
+  id: '/dreamers/lounge',
+  path: '/dreamers/lounge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DreamersLoginRoute = DreamersLoginRouteImport.update({
+  id: '/dreamers/login',
+  path: '/dreamers/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dreamers/login': typeof DreamersLoginRoute
+  '/dreamers/lounge': typeof DreamersLoungeRoute
+  '/partners/dashboard': typeof PartnersDashboardRoute
+  '/partners/login': typeof PartnersLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dreamers/login': typeof DreamersLoginRoute
+  '/dreamers/lounge': typeof DreamersLoungeRoute
+  '/partners/dashboard': typeof PartnersDashboardRoute
+  '/partners/login': typeof PartnersLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dreamers/login': typeof DreamersLoginRoute
+  '/dreamers/lounge': typeof DreamersLoungeRoute
+  '/partners/dashboard': typeof PartnersDashboardRoute
+  '/partners/login': typeof PartnersLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dreamers/login'
+    | '/dreamers/lounge'
+    | '/partners/dashboard'
+    | '/partners/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dreamers/login'
+    | '/dreamers/lounge'
+    | '/partners/dashboard'
+    | '/partners/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/dreamers/login'
+    | '/dreamers/lounge'
+    | '/partners/dashboard'
+    | '/partners/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DreamersLoginRoute: typeof DreamersLoginRoute
+  DreamersLoungeRoute: typeof DreamersLoungeRoute
+  PartnersDashboardRoute: typeof PartnersDashboardRoute
+  PartnersLoginRoute: typeof PartnersLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners/login': {
+      id: '/partners/login'
+      path: '/partners/login'
+      fullPath: '/partners/login'
+      preLoaderRoute: typeof PartnersLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners/dashboard': {
+      id: '/partners/dashboard'
+      path: '/partners/dashboard'
+      fullPath: '/partners/dashboard'
+      preLoaderRoute: typeof PartnersDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dreamers/lounge': {
+      id: '/dreamers/lounge'
+      path: '/dreamers/lounge'
+      fullPath: '/dreamers/lounge'
+      preLoaderRoute: typeof DreamersLoungeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dreamers/login': {
+      id: '/dreamers/login'
+      path: '/dreamers/login'
+      fullPath: '/dreamers/login'
+      preLoaderRoute: typeof DreamersLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DreamersLoginRoute: DreamersLoginRoute,
+  DreamersLoungeRoute: DreamersLoungeRoute,
+  PartnersDashboardRoute: PartnersDashboardRoute,
+  PartnersLoginRoute: PartnersLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
