@@ -1,21 +1,41 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/partners/login")({
   component: PartnersLogin,
 });
 
+const DEMO_AGENT_ID = "VL-2274-A";
+const DEMO_EMAIL = "advisor@dayea.demo";
+const DEMO_PASSWORD = "PartnerDemo2025";
+
 function PartnersLogin() {
   const navigate = useNavigate();
-  const [agentId, setAgentId] = useState("VL-2274-A");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [agentId, setAgentId] = useState(DEMO_AGENT_ID);
+  const [email, setEmail] = useState(DEMO_EMAIL);
+  const [password, setPassword] = useState(DEMO_PASSWORD);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error || !data.session) {
+      setLoading(false);
+      setError(error?.message ?? "Sign-in failed");
+      return;
+    }
+    // Verify agent ID against profile metadata
+    const expected = data.user?.user_metadata?.agent_id;
+    if (expected && expected !== agentId) {
+      await supabase.auth.signOut();
+      setLoading(false);
+      setError("Agent Corporate ID does not match this account.");
+      return;
+    }
     navigate({ to: "/partners/dashboard" });
   };
 
