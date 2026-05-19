@@ -59,11 +59,10 @@ function DreamersLogin() {
           <p className="eyebrow mt-8 lg:mt-0">Returning Guest</p>
           <h1 className="mt-4 font-serif text-4xl">Welcome back.</h1>
           <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-            We don't ask you to remember passwords. Enter your email and we'll send a
-            private link to your inbox.
+            Sign in with the private credentials we provided. Your stay history follows you across every visit.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-12 space-y-8">
+          <form onSubmit={handleSubmit} className="mt-12 space-y-7">
             <div>
               <label className="eyebrow block mb-3">Your email</label>
               <input
@@ -76,15 +75,29 @@ function DreamersLogin() {
                 disabled={loading || sent}
               />
             </div>
+            <div>
+              <label className="eyebrow block mb-3">Password</label>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="input-line"
+                disabled={loading || sent}
+              />
+            </div>
+
+            {error && <p className="text-xs text-destructive">{error}</p>}
 
             <button type="submit" disabled={loading || sent} className="btn-primary w-full relative">
               {loading && (
                 <span className="absolute inset-0 flex items-center justify-center">
-                  <Spinner /> <span className="ml-3">Sending</span>
+                  <Spinner /> <span className="ml-3">Signing in</span>
                 </span>
               )}
-              {sent && !loading && <span>✓ Link Sent · Redirecting</span>}
-              {!loading && !sent && <span>Request Magic Link</span>}
+              {sent && !loading && <span>✓ Welcome back · Redirecting</span>}
+              {!loading && !sent && <span>Enter the Lounge</span>}
             </button>
 
             <p className="text-center text-xs text-muted-foreground">
@@ -93,9 +106,11 @@ function DreamersLogin() {
           </form>
 
           <div className="mt-16 hairline" />
-          <p className="mt-6 text-[0.65rem] tracking-[0.25em] uppercase text-muted-foreground">
-            Demo — any email proceeds to the lounge
-          </p>
+          <div className="mt-6 space-y-1 text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground">
+            <p>Demo account · prefilled</p>
+            <p className="font-mono normal-case tracking-normal text-[0.7rem]">sarah@dayea.demo</p>
+            <p className="font-mono normal-case tracking-normal text-[0.7rem]">DreamerDemo2025</p>
+          </div>
         </div>
       </div>
     </div>
