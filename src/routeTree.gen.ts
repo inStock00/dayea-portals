@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PartnersLoginRouteImport } from './routes/partners.login'
 import { Route as PartnersDashboardRouteImport } from './routes/partners.dashboard'
 import { Route as DreamersLoungeRouteImport } from './routes/dreamers.lounge'
 import { Route as DreamersLoginRouteImport } from './routes/dreamers.login'
 
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const DreamersLoginRoute = DreamersLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/reserve': typeof ReserveRoute
   '/dreamers/login': typeof DreamersLoginRoute
   '/dreamers/lounge': typeof DreamersLoungeRoute
   '/partners/dashboard': typeof PartnersDashboardRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/reserve': typeof ReserveRoute
   '/dreamers/login': typeof DreamersLoginRoute
   '/dreamers/lounge': typeof DreamersLoungeRoute
   '/partners/dashboard': typeof PartnersDashboardRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/reserve': typeof ReserveRoute
   '/dreamers/login': typeof DreamersLoginRoute
   '/dreamers/lounge': typeof DreamersLoungeRoute
   '/partners/dashboard': typeof PartnersDashboardRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/reserve'
     | '/dreamers/login'
     | '/dreamers/lounge'
     | '/partners/dashboard'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/reserve'
     | '/dreamers/login'
     | '/dreamers/lounge'
     | '/partners/dashboard'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/reserve'
     | '/dreamers/login'
     | '/dreamers/lounge'
     | '/partners/dashboard'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ReserveRoute: typeof ReserveRoute
   DreamersLoginRoute: typeof DreamersLoginRoute
   DreamersLoungeRoute: typeof DreamersLoungeRoute
   PartnersDashboardRoute: typeof PartnersDashboardRoute
@@ -97,6 +110,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ReserveRoute: ReserveRoute,
   DreamersLoginRoute: DreamersLoginRoute,
   DreamersLoungeRoute: DreamersLoungeRoute,
   PartnersDashboardRoute: PartnersDashboardRoute,
