@@ -7,11 +7,11 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-12 lg:py-8">
         <Link to="/" className="font-serif text-2xl tracking-[0.3em]">DAYEA</Link>
         <nav className="hidden gap-10 text-xs tracking-[0.25em] uppercase md:flex">
-          <a href="#about" className="hover:opacity-70 transition-opacity">The Island</a>
-          <a href="#about" className="hover:opacity-70 transition-opacity">Villas</a>
-          <a href="#portals" className="hover:opacity-70 transition-opacity">Member Access</a>
+          <Link to="/" className="hover:opacity-70 transition-opacity">The Island</Link>
+          <Link to="/reserve" className="hover:opacity-70 transition-opacity">Reserve</Link>
+          <Link to="/" hash="portals" className="hover:opacity-70 transition-opacity">Member Access</Link>
         </nav>
-        <div className="text-xs tracking-[0.25em] uppercase opacity-80">EN · USD</div>
+        <Link to="/reserve" className="text-xs tracking-[0.25em] uppercase hover:opacity-70 transition-opacity">Reserve</Link>
       </div>
     </header>
   );
